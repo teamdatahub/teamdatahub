@@ -29,5 +29,5 @@ Our process book is available as processbook.pdf as well as on our site at the u
 
 ###URLs
 
-* You find our site at this url
-* You can find our video at this url
+* You find our site at this url: http://teamdatahub.github.io
+* You can find our video at this url: https://www.youtube.com/watch?v=EYuwbsYR7N4&feature=youtu.be
