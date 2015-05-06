@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaflet L.Polyline.fromEncoded()</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+</head>
+<body>
+	<div id="map" style="width: 600px; height: 400px"></div>
+
+	<script src="libs/Polyline.encoded.js"></script>
+	<script>
+		var map = new L.Map('map');
+		L.tileLayer(
+			'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+			{
+				attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+				maxZoom: 18
+			}
+		).addTo(map);
+		var encoded = "wplaGt|}pLz@j@ENCBE?EDc@zAGMEKICK?a@^UTIAIG]e@Uq@CIX]x@{@TmABc@?YIo@IUKKKGO?COL]Jc@Fg@@i@@IMeASw@Mc@gCmDYi@Ok@[kB^aBPuARyAFOZkAPsAd@m@h@]H]NUf@m@tDcCi@kBQ]GI{DsByDsByAu@uAUaLqBeIwA]I@OCUe@qCi@sCaAb@UcA_@eCs@qDKq@MMIo@qAqHkBgKaI|CcK|DgBp@kA{Gy@uEmBwKI@AEYuAUFa@PZnBZ`Bc@Ru@aEw@oEqBeLWaAYs@w@{ARmA@_@Ce@GUQMIMEc@Q[WSMEc@Ce@DUGQIEI?S?YKEyAa@oB]gEw@oBWq@FUFYN_@RWJAFADQPCFNd@D??IO[IWKk@Iw@C{@BwAEAEh@BF^DM]E[?k@@O@MJSGY@G@Q?c@Ka@Um@Qc@CW?uBI}O@wEW?AiA"
+		var polyline = L.Polyline.fromEncoded(encoded).addTo(map);
+		map.fitBounds(polyline.getBounds());
+	</script>
+</body>
+</html>

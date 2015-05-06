@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="img/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+    <title>datahub</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="css/custom.css" />
+    <style>
+    .chart.title {
+      font-size: 18px;
+      font-weight: bold;
+    }</style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="color:#399F2E">datahub</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">overview</a></li>
+            <li class="active"><a href="/who.html">who</a></li>
+            <li><a href="/where.html">where</a></li>
+            <li><a href="/when.html">when</a></li>
+            <li><a href="/follow.html">follow me</a></li>
+            <li><a href="/process.html">process book</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a id="reset"><span class="glyphicon glyphicon-refresh"></span></a></li>
+            <li><a data-toggle="modal" data-target="#note"><span class="glyphicon glyphicon-asterisk"></span></a></li>
+            <li><a data-toggle="modal" data-target="#help"><span class="glyphicon glyphicon-question-sign"></span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+
+    <table width="100%">
+    <thead>
+      <tr>
+        <th width="25%"></th>
+        <th width="25%"></th>
+        <th width="25%"></th>
+        <th width="25%"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class="top-row">
+        <td colspan='2'><div id="stackedVis"></div></td>
+        <td colspan='2'><div id="ageVis"></div></td>
+      </tr>
+      <tr class="middle-row">
+        <td><div id="pieVis1" class="pievis"></div></td>
+        <td><div id="pieVis3" class="pievis"></div></td>
+        <td><div id="pieVis2" class="pievis"></div></td>
+        <td><div id="pieVis4" class="pievis"></div></td>
+      </tr>
+      <tr class="bottom-row"><td colspan='4'><div id="yearBrush" class="time"></div></td>
+      </tr>
+    </tbody>
+    </table>
+
+
+    </div><!-- /.container -->
+    <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">I'm overwhelmed</h4>
+        </div>
+        <div class="modal-body">
+          <p><strong>The big line graph</strong> just shows the overall daily counts. When you click on any of the pie charts, that data populates this chart. Like this:</p><img align='center' src="design/img/stackedvis.png" alt="Smiley face" height="100"><img align='center' src="design/img/genderstackedvis.png" alt="Smiley face" height="100"><br>
+          <img src="design/img/pievis.png" height="100"><p><strong>The pie charts</strong> show the breakdown of the all the trips.  Note that while all 1.6 million trips are classified as either casual or registered, and either leisure or commuter, we only have gender and local information for the registered users, who make up 75% of all rides.</p><p>When you click on these charts, their information populates other charts on the page</p>
+          <img src="design/img/age.png" height="100"><p><strong>The age distribution</strong> show the distribution of the ages for all of the trips taken by registered users.</p>
+          <img src="design/img/brush.gif" width="400"><p><strong>The brush</strong> lets you select a subset of trip information based on time. The background graph just lets you know where you can find data over the course of the years.</p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">I guess I'm less overwhelmed</button>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="note" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p>We only have age, gender, and home ZIP code for trips taken by registered users, which make up 75% of all trips.</p>
+            <p>Also, age data for registered users is only available through Sept. 30, 2012.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">I see</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<script src="libs/jquery-2.1.3.min.js"></script>
+<script src="libs/bootstrap.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.js'></script>
+<script src="libs/d3.min.js"></script>
+<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="libs/token.js"></script>
+<script src="data/colorVariables.js"></script>
+<script src="js/weathervis.js"></script>
+<script src="js/stackedvis.js"></script>
+<script src="js/whopievis.js"></script>
+<script src="js/yearbrush.js"></script>
+<script src="js/agevis.js"></script>
+<script>
+// Create a map in the div #map
+
+$(function() {
+
+    // this function can convert Date objects to a string
+    // it can also convert strings to Date objects
+    // see: https://github.com/mbostock/d3/wiki/Time-Formatting
+    var parseDate = d3.time.format("%_m/%_d/%Y").parse;
+
+    //==========================================
+    //--- HERE IS WHERE ALL THE MAGIC STARTS --
+    //==========================================
+
+    // variables keeping global knowledge of the data
+    var dateData;
+    var brushData;
+    var ageData;
+
+    // call this function after Data is loaded, reformatted and bound to the variables
+    var initVis = function() {
+      var MyEventHandler = {};
+      // Instantiate all Vis Objects here
+      // var weatherVis = new WeatherVis(d3.select("#weatherVis"), dateData, MyEventHandler);
+      var ageVis = new AgeVis(d3.select("#ageVis"), ageData, MyEventHandler);
+      var stackedVis = new StackedVis(d3.select("#stackedVis"), dateData, MyEventHandler);
+      var yearBrush = new YearBrush(d3.select("#yearBrush"), brushData, MyEventHandler);
+      var pieVisRegistered = new WhoPieVis(d3.select("#pieVis1"), dateData, ["registered","casual"],MyEventHandler);
+      var pieVisType = new WhoPieVis(d3.select("#pieVis2"), dateData, ["commuter","leisure"], MyEventHandler);
+      var pieVisGender = new WhoPieVis(d3.select("#pieVis3"), dateData, ["male","female"], MyEventHandler);
+      var pieVisLocal = new WhoPieVis(d3.select("#pieVis4"), dateData, ["local","visitor"], MyEventHandler);
+
+      // Bind the eventHandler to the Vis Objects
+      $(MyEventHandler).bind("selectionChanged", function(event, from, to, status) {
+          pieVisLocal.onSelectionChange(from,to,status);
+          pieVisType.onSelectionChange(from,to,status);
+          pieVisGender.onSelectionChange(from,to,status);
+          pieVisRegistered.onSelectionChange(from,to,status);
+          ageVis.onSelectionChange(from,to,status);
+          stackedVis.onSelectionChange(from,to,status);
+          // weatherVis.onSelectionChange(from,to,status);
+
+      });
+
+      $(MyEventHandler).bind("typeChanged", function(event, dom1, dom2,type) {
+          stackedVis.onTypeChange([dom1, dom2]);
+          // weatherVis.onTypeChange([dom1, dom2]);
+      });
+      $(MyEventHandler).bind("hoverChanged", function(event, date) {
+          stackedVis.onHoverChange(date);
+          // weatherVis.onHoverChange(date);
+      });
+
+      $('#reset').on("click", function () {
+          stackedVis.onTypeChange(["total"]);
+          // weatherVis.onTypeChange(["total"]);
+      })
+    };
+
+    // call this function after both files are loaded -- error should be "null" if no error
+    var dataLoaded = function(_data,_ageData) {
+        dateData = _data.map(function (d) {
+          return {
+            AWND: parseFloat(d.AWND)*0.223694,
+            PRCP: parseFloat(d.PRCP),
+            SNOW: parseFloat(d.SNOW),
+            TMAX: parseFloat(d.TMAX)*1.8+32,
+            TMIN: parseFloat(d.TMIN)*1.8+32,
+            date: parseDate(d.date),
+            female: parseInt(d.females),
+            male: parseInt(d.registered) - parseInt(d.females),
+            leisure: parseInt(d.leisure),
+            commuter: parseInt(d.total) - parseInt(d.leisure),
+            local: parseInt(d.locals),
+            visitor: parseInt(d.registered) - parseInt(d.locals),
+            note: d.note,
+            registered: parseInt(d.registered),
+            casual: parseInt(d.total) - parseInt(d.registered),
+            total: parseInt(d.total)
+          }
+        });
+        brushData = dateData.map(function (d) { return {date: d.date, total: d.total} });
+        ageData = _ageData.map(function (d) {
+          var res = d3.range(81).map(function () { return 0});
+          d3.entries(d).forEach(function (e) {
+            if (e.key !== "date") {
+              var k = parseInt(e.key);
+              var v = parseInt(e.value);
+              res[k] = v;
+            }
+          })
+          return {
+            date: parseDate(d.date),
+            ages: res
+          }
+        })
+        initVis();
+    };
+
+    var startHere = function() {
+      d3.csv("data/breakdown.csv", function (error, data) {
+        if (!error) {
+          d3.csv("data/ages.csv", function (errorAges, ageData) {
+            if (!errorAges) {
+              dataLoaded(data,ageData);
+            }
+          })
+        }
+      });
+    };
+
+    startHere();
+  });
+</script>
+
+  </body>
+</html>

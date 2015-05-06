@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="img/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+    <title>datahub</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="css/custom.css" />
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="color:lightgreen">datahub</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">overview</a></li>
+            <li class="active"><a href="/who.html">who</a></li>
+            <li><a href="/where.html">where</a></li>
+            <li><a href="/when.html">when</a></li>
+            <li><a href="/process.html">process book</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+
+ <!-- TO DO -->
+<div id="map" style="width: 600px; height: 400px"></div>
+    </div><!-- /.container -->
+<script src="libs/jquery-2.1.3.min.js"></script>
+<script src="libs/bootstrap.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.js'></script>
+<script src="libs/d3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="libs/Polyline.encoded.js"></script>
+<script src="libs/token.js"></script>
+<script>
+$(function() {
+var map = new L.Map('map');
+    L.tileLayer(
+      'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        maxZoom: 18
+      }
+    ).addTo(map);
+    var encoded = "wplaGt|}pLz@j@ENCBE?EDc@zAGMEKICK?a@^UTIAIG]e@Uq@CIX]x@{@TmABc@?YIo@IUKKKGO?COL]Jc@Fg@@i@@IMeASw@Mc@gCmDYi@Ok@[kB^aBPuARyAFOZkAPsAd@m@h@]H]NUf@m@tDcCi@kBQ]GI{DsByDsByAu@uAUaLqBeIwA]I@OCUe@qCi@sCaAb@UcA_@eCs@qDKq@MMIo@qAqHkBgKaI|CcK|DgBp@kA{Gy@uEmBwKI@AEYuAUFa@PZnBZ`Bc@Ru@aEw@oEqBeLWaAYs@w@{ARmA@_@Ce@GUQMIMEc@Q[WSMEc@Ce@DUGQIEI?S?YKEyAa@oB]gEw@oBWq@FUFYN_@RWJAFADQPCFNd@D??IO[IWKk@Iw@C{@BwAEAEh@BF^DM]E[?k@@O@MJSGY@G@Q?c@Ka@Um@Qc@CW?uBI}O@wEW?AiA"
+    var polyline = L.Polyline.fromEncoded(encoded).addTo(map);
+    map.fitBounds(polyline.getBounds());
+  }); 
+</script>
+
+  </body>
+</html>

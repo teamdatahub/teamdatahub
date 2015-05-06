@@ -1,0 +1,92 @@
+.content {
+    padding-top: 100px;
+}
+
+
+.primary
+{
+    color: #399F2E;
+}
+
+.secondary
+{
+    color: #217D1C;
+}
+
+img {  
+    float: center;
+    width: 50%;
+}
+
+.center {
+    text-align: center;
+    float: center;
+}
+
+
+/*styles for scrollspy on process book page*/
+section {
+    margin-bottom: -40px;
+    padding-bottom: -0;
+    padding-top: 30px;
+}
+
+h2 {
+    color: #217D1C; 
+}
+.jumbotron {
+    background-color: #399F2E;
+    color: white;
+}
+
+ul.nav-tabs {
+	width: 240px;
+	margin-top: 20px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+}
+ul.nav-tabs li {
+	margin: 0;
+	border-top: 1px solid #ddd;
+}
+ul.nav-tabs li:first-child {
+	border-top: none;
+}
+ul.nav-tabs li a {
+    color: gray;
+	margin: 0;
+	padding: 8px 16px;
+	border-radius: 0;
+}
+ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover {
+	color: #217D1C;
+/*    background-color: #399F2E;*/
+	border: 1px solid #399F2E;
+}
+ul.nav-tabs li:first-child a {
+	border-radius: 4px 4px 0 0;
+}
+ul.nav-tabs li:last-child a {
+	border-radius: 0 0 4px 4px;
+}
+ul.nav-tabs.affix {
+	top: 75px; /* Set the top position of pinned element */
+}
+
+.figure {
+    font-size: 11px;
+    text-align: center;
+}
+
+.centered
+{
+    text-align: center;
+}
+
+.figure > img {
+ width: 100%;   
+}
+img.full-width {
+    width: 100%;
+}

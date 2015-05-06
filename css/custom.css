@@ -1,0 +1,184 @@
+body {
+	padding-top: 60px;
+    font-family: 'Helvetica Neue';
+}
+#filterform {
+    width:300px;
+}
+#timeVis {
+  height: 220px;
+}
+.pievis {
+  height: 280px;
+}
+.time {
+  height: 100px;
+  width: 100%;
+}
+.year.axis path, line
+ {
+    display: none;
+}
+.year.axis text
+ {
+    font: 13px;
+}
+.highlight {
+  color:#399F2E;
+}
+.notHovered {
+	opacity: 0.3;
+}
+#formVis {
+  width: 50%;
+  height:50px;
+  position: fixed;
+  top: 60px;
+ text-align: center;
+}
+.btn-toolbar {
+    text-align: center;
+    display: inline-block;
+    float: middle;
+}
+
+
+.btn {
+  min-width: 120px;
+  color: #399F2E;
+  font-weight: 300;
+}
+
+.btn.active {
+  background-color: #399F2E;
+    color: white;
+    font-weight: 800;
+}
+
+#stackedVis, #weatherVis, #ageVis {
+  height: 350px;
+}
+#whenVis {
+	height:700px;
+}
+#yearBrush {
+ position: fixed;
+    bottom: 0;
+}
+.userline {
+	opacity: 0.5
+}
+.userline:hover {
+	opacity: 1
+}
+.weekendLine {
+	opacity: 0.5
+}
+.weekendLine:hover {
+	opacity: 1
+}
+.weekdayLine {
+	opacity: 0.5
+}
+.weekdayLine:hover {
+	opacity: 1
+}
+.arc path {
+  stroke: #fff;
+}
+.brush{
+    fill: black;
+    fill-opacity: .5;
+    pointer-events: none;
+}
+.timeaxis text {
+    font-size: 28px;
+    font-weight: bold;
+}
+.axis line,
+.axis path {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+}
+.line {
+  fill: none;
+  stroke-width:2px;
+}
+#explore-button
+{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    z-index: 1000;
+    padding: 1px 1px 1px 1px;
+}
+.circle {
+  opacity: 0.65;
+  fill: lightgrey;
+}
+#chordVis {
+  height:600px;
+  width:700px;
+}
+
+
+.leaflet-popup-content-wrapper {
+  background:rgba(0,0,0,0.8);
+  color:#fff;
+  font-size:12px;
+  line-height:12px;
+  }
+.leaflet-popup-content-wrapper a {
+  color:rgba(255,255,255,0.5);
+  }
+.leaflet-popup-tip-container {
+  width:0px;
+  height:0px;
+  }
+
+.stationA {
+	opacity: 1 !important;
+}
+.stationN {
+	opacity: 0.3 !important;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+
+}
+
+.legend label,
+.legend span {
+  display:block;
+  float:left;
+  height:15px;
+  width:20%;
+  text-align:center;
+  font-size:9px;
+  color:black;
+}
+
+/* styles for the panel on right of overview */
+.panel-title{
+    text-align: center;
+}
+
+.panel-title a {
+  font-weight: 500;
+  color: #555;
+}
+
+.panel-title a:active {
+    text-transform: none;
+    text-decoration: none;
+}
+
+.panel-heading {
+ padding: 0;
+}

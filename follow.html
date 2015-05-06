@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <link rel="manifest" href="img/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+    <title>datahub</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.css' rel='stylesheet' />
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/follow.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/" style="color:#399F2E">datahub</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">overview</a></li>
+            <li><a href="/who.html">who</a></li>
+            <li><a href="/where.html">where</a></li>
+            <li><a href="/when.html">when</a></li>
+            <li class="active"><a href="/follow.html">follow me</a></li>
+            <li><a href="/process.html">process book</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a id="reset"><span class="glyphicon glyphicon-refresh"></span></a></li>
+            <li><a data-toggle="modal" data-target="#help" id="helpButton"><span class="glyphicon glyphicon-question-sign"></span></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+    <div id='legend' style='display:none;'>
+          <span style='background:yellowgreen;'></span>
+          <span style='background:blue;'></span>
+          <label style="color:yellowgreen">trip</label>
+          <label style="color:blue">redistribution</label>
+    </div>
+
+    <table width="100%">
+      <thead>
+        <tr>
+          <th width="30%"></th>
+          <th width="40%"></th>
+          <th width="30%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan='2'>
+            <div id="map"></div>
+          </td>
+          <td valign="top">
+            <div id="runningVis" class="span4">
+              <div>
+                <table width="100%">
+                  <thead>
+                    <tr>
+                      <th width="40%"></th>
+                      <th width="30%"></th>
+                      <th width="30%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><div class="date" id="dateCountMonth"></div></td>
+                      <td><div class="date" id="dateCountDay"></div></td>
+                      <td><div class="date" id="dateCountYear"></div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div>
+                <div class="total" align="center">
+                  <span id="totalCount"></span> trips <br>
+                  <span id="timeCount"></span><br>
+                  <span id="distCount"></span> miles
+                </div>
+              </div>
+
+            </div>
+            <div id="pieVis">
+            </div>
+            <div align="center">
+              <button id="slower" class="btn btn-default"><span class="glyphicon glyphicon-step-backward"></span></button>
+              <button id="pause" class="btn btn-default"><span id='imgPause' class="glyphicon glyphicon-pause"></span></button>
+              <button id="faster" class="btn btn-default"><span class="glyphicon glyphicon-step-forward"></span></button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan='3'><div id='progressVis'></div></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+    </div><!-- /.container -->
+    <div class="modal fade" id="play" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body" align="center">
+          <button type="button" class="btn btn-default btn-lg" id="playButton">
+            <span class="glyphicon glyphicon-play"></span> GO!
+          </button><br>
+          follow bike B00001 over the two years of Hubway trips
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close helpClose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Wait, what?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Boston's Hubway bike sharing system has a bike known as the Mayor's Bike. Really, it's only different because it's bike number B00001, but apparently it looks a little different.</p><p> We took all the trips made by the Mayor's Bike over the two years of data available, and used Google Directions to get the best bicycling route for each trip. Of course, the bike may not have taken that exact route, but it had to get between point A and point B somehow.</p><p><strong><span style="color:green">Green </span></strong>lines indicate trips ridden by users, and <strong><span style="color:blue">blue</span></strong> lines indicate that Hubway moved the bike between stations as part of redistribution</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default helpClose" data-dismiss="modal">I get it now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<script src="libs/jquery-2.1.3.min.js"></script>
+<script src="libs/bootstrap.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.6/mapbox.js'></script>
+<script src="libs/d3.min.js"></script>
+<script src="libs/Polyline.encoded.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="libs/token.js"></script>
+<script src="js/yearbrush.js"></script>
+<script src="js/followvis.js"></script>
+<script src="js/runningvis.js"></script>
+<script src="js/pievis.js"></script>
+<script src="js/progressvis.js"></script>
+<script>
+// Create a map in the div #map
+
+$(function() {
+    var play = false;
+
+    $('#play').modal('show');
+    var parseDate = d3.time.format("%_m/%_d/%Y %H:%M:%S").parse;
+
+    //==========================================
+    //--- HERE IS WHERE ALL THE MAGIC STARTS --
+    //==========================================
+
+    // variables keeping global knowledge of the data
+    var data;
+    var routeData = {};
+    var initVis = function () {
+
+      var MyEventHandler = {};
+      $('#playButton').on('click',function () {
+        $('#play').modal('hide');
+        play = true;
+        tick();
+       });
+      $('#helpButton').on('click',function () {
+        play = false;
+       });
+       $('.helpClose').on('click',function () {
+        play = true;
+        tick();
+       });
+      $('#reset').on("click", function () {
+        i = 0;
+      });
+      $("#faster").on("click", function () {
+        timeout /= 2;
+      });
+      $("#slower").on("click", function () {
+        timeout *= 2;
+      });
+      $('#pause').on('click', function () {
+        $("#imgPause").attr("class", function () { return play ? "glyphicon glyphicon-play" : "glyphicon glyphicon-pause"})
+        play = play ? false : true;
+        tick();
+      });
+
+      var mapVis = new FollowVis(d3.select("body"), routeData, MyEventHandler);
+      var runningVis = new RunningVis(d3.select("#runningVis"), routeData,MyEventHandler);
+      var pieVis = new PieVis(d3.select("#pieVis"),MyEventHandler);
+      var progressVis = new ProgressVis(d3.select("#progressVis"),routeData,MyEventHandler);
+
+      var i = 0;
+      var timeout = 100;
+      var tick = function () {
+        if (play) {
+          if (i < data.length) {
+            runningVis.updateVis(i,data[i]);
+            mapVis.tick(i,data[i]);
+            pieVis.tick(i,data[i]);
+            progressVis.tick(i,data[i]);
+            setTimeout(tick, timeout)
+            i += 1
+          } else {
+            i = 0;
+            tick();
+          }
+        }
+      }
+    };
+
+    // call this function after both files are loaded -- error should be "null" if no error
+    var dataLoaded = function(_data,_routeData) {
+       var pad = function (a,b){ return(1e4+a+"").slice(-b) }
+
+       var neededRoutes = [];
+
+       data = _data.map(function (d) {
+          var reverse, origdest;
+          if (d.strt_statn == d.end_statn) {
+            reverse = null;
+            origdest = null;
+          } else {
+            reverse = +d.strt_statn > +d.end_statn;
+            origdest = pad(Math.min(+d.strt_statn,+d.end_statn),3) + pad(Math.max(+d.strt_statn,+d.end_statn),3);
+          }
+          neededRoutes.push(origdest);
+          return {
+            duration: +d.duration,
+            date: parseDate(d.start),
+            origdest: origdest,
+            reverse: reverse,
+            userType: d.userType,
+            tripType: (d.tripType == 'trip') ? "greenyellow" : "blue",
+            gender: d.gender
+          }
+        }).filter(function (d) { return d.reverse != null});
+
+      neededRoutes = d3.set(neededRoutes).values();
+
+       _routeData.forEach(function (d) {
+          if (neededRoutes.indexOf(d.origdest) > -1) {
+            routeData[d.origdest] = {polyline: d.polyline, dist: parseFloat(d.dist)};
+          }
+       });
+      initVis();
+    };
+
+    var startHere = function() {
+      d3.csv("data/mayorsbike.csv", function (error, data) {
+        if (!error) {
+          d3.csv("data/routes_stats.csv", function (errorRoute, routeData) {
+            if (!errorRoute) {
+              dataLoaded(data,routeData);
+            }
+          })
+        }
+      });
+    };
+
+    startHere();
+  });
+</script>
+</body>
+</html>
